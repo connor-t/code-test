@@ -7,6 +7,8 @@ class Checkout
     @total = 0
   end
 
+  # store the item price with the basket so the discounted price can be used
+  # where applicable
   def scan(item)
     if @basket[item.code]
       @basket[item.code][:count] += 1
@@ -27,6 +29,7 @@ class Checkout
   def discount_products
     @basket.each do |product, values|
       if @promotional_rules.key?(product) && values[:count] >= @promotional_rules.dig(product, :amount)
+        # update the line_price with the discounted price
         values[:line_price] = @promotional_rules.dig(product, :price)
       end
     end

@@ -1,18 +1,14 @@
 require_relative '../lib/checkout.rb'
 require_relative '../lib/product.rb'
-
+require_relative '../lib/promotion.rb'
 
 describe 'Checkout' do
-  let(:promotional_rules) do
-    { '001' => { amount: 2, price: 8.50 },
-      total_spend: { amount: 60, discount: 10 } }
-  end
+  let(:promotional_rules) { Promotion.get_rules }
   let(:co) { Checkout.new(promotional_rules) }
   let(:item_1) { Product.new('001', 'chair', 9.25) }
   let(:item_2) { Product.new('002', 'table', 45.0) }
   let(:item_3) { Product.new('003', 'table', 19.95) }
 
-  
   it 'sums basket 1' do
     co.scan(item_1)
     co.scan(item_2)
