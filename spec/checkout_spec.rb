@@ -3,7 +3,7 @@ require_relative '../lib/checkout.rb'
 describe 'Checkout' do
   let(:promotional_rules) { 'rules' }
   let(:co) { Checkout.new(promotional_rules) }
-  let(:item) { 'item' }
+  let(:item) { Product.new(001, 'chair', 9.99) }
 
   context '#scan' do
     it 'scans an item' do
