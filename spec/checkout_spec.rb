@@ -36,4 +36,12 @@ describe 'Checkout' do
       expect(co.total).to eq(54.25)
     end
   end
+
+  context '#discount_products' do
+    it 'checks for a discount & updates line price' do
+      co.scan(item)
+      co.scan(item)
+      expect(co.discount_products).to eq({'001' => {count: 2, line_price: 8.50}})
+    end
+  end
 end

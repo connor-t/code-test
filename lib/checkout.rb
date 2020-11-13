@@ -17,12 +17,18 @@ class Checkout
 
   def total
     return 0 if @basket.empty?
+    
     discount_products
     sum_items
     @total
   end
 
   def discount_products
+    @basket.each do |product, values|
+      if @promotional_rules.key?(product) && values[:count] >= @promotional_rules.dig(product, :amount)
+        values[:line_price] = @promotional_rules.dig(product, :price)
+      end
+    end
   end
 
   def sum_items
