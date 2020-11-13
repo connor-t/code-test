@@ -21,7 +21,7 @@ class Checkout
     discount_products
     sum_items
     discount_total if has_discount_for_total?
-    @total
+    @total.round(2)
   end
 
   def discount_products
