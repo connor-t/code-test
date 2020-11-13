@@ -48,16 +48,16 @@ describe 'Checkout' do
 
   context '#has_discount_for_total?' do
     it 'checks if there is a discount for the total price' do
-      allow_any_instance_of(Checkout).to receive(:total).and_return(100)
-      co.total = 100
+      allow_any_instance_of(Checkout).to receive(:total_price).and_return(100)
+      co.total_price = 100
       expect(co.has_discount_for_total?).to eq(true)
     end
   end
 
   context '#discount_total' do
     it 'applies the discount to the total' do
-      allow_any_instance_of(Checkout).to receive(:total).and_return(100)
-      co.total = 100
+      allow_any_instance_of(Checkout).to receive(:total_price).and_return(100)
+      co.total_price = 100
       expect(co.discount_total).to eq(90)
     end
   end

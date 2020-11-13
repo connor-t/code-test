@@ -1,10 +1,10 @@
 class Checkout
-  attr_accessor :basket, :total
+  attr_accessor :basket, :total_price
 
   def initialize(promotional_rules)
     @promotional_rules = promotional_rules
     @basket = {}
-    @total = 0
+    @total_price = 0
   end
 
   # store the item price with the basket so the discounted price can be used
@@ -23,7 +23,7 @@ class Checkout
     discount_products
     sum_items
     discount_total if has_discount_for_total?
-    @total.round(2)
+    @total_price.round(2)
   end
 
   def discount_products
@@ -36,14 +36,14 @@ class Checkout
   end
 
   def sum_items
-    @basket.each { |_, item| @total += item[:count] * item[:line_price] }
+    @basket.each { |_, item| @total_price += item[:count] * item[:line_price] }
   end
 
   def has_discount_for_total?
-    @promotional_rules.key?(:total_spend) &&  @total > @promotional_rules[:total_spend][:amount]
+    @promotional_rules.key?(:total_spend) && @total_price > @promotional_rules[:total_spend][:amount]
   end
 
   def discount_total
-    @total -= @total * (@promotional_rules[:total_spend][:discount]/100.0)
+    @total_price -= @total_price * (@promotional_rules[:total_spend][:discount]/100.0)
   end
 end
