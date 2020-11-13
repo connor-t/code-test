@@ -3,15 +3,29 @@ class Checkout
 
   def initialize(promotional_rules)
     @promotional_rules = promotional_rules
-    @basket = []
+    @basket = {}
     @total = 0
   end
 
   def scan(item)
-    @basket << item
+    if @basket[item.code]
+      @basket[item.code][:count] += 1
+    else
+      @basket[item.code] = { count: 1, line_price: item.price }
+    end
   end
 
   def total
-    @basket.sum(&:price)
+    return 0 if @basket.empty?
+    discount_products
+    sum_items
+    @total
+  end
+
+  def discount_products
+  end
+
+  def sum_items
+    @basket.each { |_,item| @total += item[:count] * item[:line_price] }
   end
 end
